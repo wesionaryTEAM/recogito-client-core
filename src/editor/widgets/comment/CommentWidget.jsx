@@ -66,7 +66,7 @@ const CommentWidget = props => {
           <TextEntryField
             content={draftReply.value}
             editable={true}
-            placeholder={comments.length > 0 ? i18n.t('Add a reply...') : i18n.t('Add a comment...')}
+            placeholder={props.commentPlaceholder || comments.length > 0 ? i18n.t('Add a reply...') : i18n.t('Add a comment...')}
             onChange={onEditReply}
             onSaveAndClose={() => props.onSaveAndClose()}
           /> 

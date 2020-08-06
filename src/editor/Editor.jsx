@@ -49,10 +49,14 @@ const Editor = props => {
 
     if (shouldApplyTemplate && props.applyImmediately)
       props.onAnnotationCreated(annotation.toAnnotation());
-
+      handleOutsideClick()
     if (element.current) {
       // Note that ResizeObserver fires once when observation starts
       return initResizeObserver();
+    }
+
+    return () => {
+      removeListener()
     }
   }, [ props.selectedElement, bounds(props.selectedElement) ]);
 
@@ -135,8 +139,29 @@ const Editor = props => {
     }
   };
 
+
+  const handleOutsideClick = () => {
+    // document.addEventListener("click", function(event){
+    //   event.stopPropagation()
+    //   var span = document.getElementById("mainEditor");
+    //   console.log('checking event', event.target.className.baseVal)
+    //   if(event 
+    //     && event.target
+    //     && event.target.className
+    //     && event.target.className.baseVal
+    //     && event.target.className.baseVal.includes("a9s-annotationlayer")
+    //     ){
+    //     props.onCancel()
+    //   }
+    // });
+  }
+
+  const removeListener = () =>{
+    document.removeEventListener("click")
+  }
+
   return (
-    <div ref={element} className="r6o-editor">
+    <div ref={element} id="mainEditor" className="r6o-editor">
       <div className="arrow" />
       <div className="inner">
         {React.Children.map(props.children, child =>
@@ -165,7 +190,7 @@ const Editor = props => {
 
             <button 
               className="r6o-btn "
-              onClick={onOk}>{i18n.t('Ok')}</button>
+              onClick={onOk}>{i18n.t('Ok1')}</button>
           </div>
         )}
       </div>
