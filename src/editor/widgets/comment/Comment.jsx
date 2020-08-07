@@ -9,14 +9,11 @@ import Environment from '../../../Environment';
 /** A single comment inside the CommentWidget **/
 const Comment = props => {
 
-  const [ isEditable, setIsEditable ] = useState(false);
-  const [ isMenuVisible, setIsMenuVisible ] = useState(false);
+  console.log('checking props inside comment', props)
 
-  const onMakeEditable = _ => {
+  if (props.body){
     props.body.draft = true;
-    setIsEditable(true);
-    setIsMenuVisible(false);
-  }
+  } 
 
   const onDelete = _ => {
     props.onDelete(props.body);
@@ -43,9 +40,10 @@ const Comment = props => {
       { creatorInfo }
     </div>
   ) : (
-    <div className={ isEditable ? "r6o-widget comment editable" : "r6o-widget comment"}>
+    <div className="r6o-widget comment editable">
       <TextEntryField 
-        editable={isEditable}
+        placeholder={props.placeholder}
+        editable={true}
         content={props.body.value} 
         onChange={onUpdateComment} 
         onSaveAndClose={props.onSaveAndClose} 
@@ -53,7 +51,7 @@ const Comment = props => {
       
       { creatorInfo }
 
-      <div 
+      {/* <div 
         className={isMenuVisible ? "icon arrow-down menu-open" : "icon arrow-down"} 
         onClick={() => setIsMenuVisible(!isMenuVisible)}>
         <ChevronDownIcon width={12} />
@@ -64,7 +62,7 @@ const Comment = props => {
           onEdit={onMakeEditable} 
           onDelete={onDelete} 
           onClickOutside={() => setIsMenuVisible(false)} /> 
-      }
+      } */}
     </div>
   )
 

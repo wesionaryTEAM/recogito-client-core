@@ -25,6 +25,25 @@ const Editor = props => {
   // Reference to the DOM element, so we can set position
   const element = useRef();
 
+  const listenerFunction = (event) => {
+    event.stopPropagation()
+    var span = document.getElementById("mainEditor");
+    console.log('checking event', event.target.className.baseVal)
+    if(element.current !== null && !element.current.contains(event.target)){
+      props.onCancel()
+    }
+  }
+
+
+  const handleOutsideClick = () => {
+    document.addEventListener("click", listenerFunction)
+  }
+
+  const removeListener = () =>{
+    document.removeEventListener("click", listenerFunction)
+  }
+
+
   // Re-render: set derived annotation state & position the editor
   useEffect(() => {
     // Shorthand: user wants a template applied and this is a selection
@@ -140,25 +159,6 @@ const Editor = props => {
   };
 
 
-  const handleOutsideClick = () => {
-    // document.addEventListener("click", function(event){
-    //   event.stopPropagation()
-    //   var span = document.getElementById("mainEditor");
-    //   console.log('checking event', event.target.className.baseVal)
-    //   if(event 
-    //     && event.target
-    //     && event.target.className
-    //     && event.target.className.baseVal
-    //     && event.target.className.baseVal.includes("a9s-annotationlayer")
-    //     ){
-    //     props.onCancel()
-    //   }
-    // });
-  }
-
-  const removeListener = () =>{
-    document.removeEventListener("click")
-  }
 
   return (
     <div ref={element} id="mainEditor" className="r6o-editor">

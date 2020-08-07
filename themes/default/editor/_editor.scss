@@ -36,13 +36,13 @@
     left: 5px;
     width: 18px;
     height: 18px;
-    background-color: #fff;
+    background-color: $background-color;
     @include rotate(45deg);
   }
 
   .inner {
-    padding: 5px;
-    background-color: #fff;
+    padding: 10px;
+    background-color: $background-color;
     @include rounded-corners(2px);
     @include box-shadow(2px, 2px, 42px, 0.4);
 

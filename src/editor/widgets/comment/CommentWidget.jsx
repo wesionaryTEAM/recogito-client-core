@@ -48,30 +48,33 @@ const CommentWidget = props => {
       props.onUpdateBody(draftReply, { ...draftReply, value: updated });
     }
   }
+const body = comments[0] && comments[0].body 
 
   return (
     <>
-      { comments.map((body, idx) => 
+      { comments.length >0 ? comments.map((body, idx) => 
         <Comment 
           key={idx} 
           readOnly={props.readOnly} 
           body={body} 
           onUpdate={props.onUpdateBody}
           onDelete={props.onRemoveBody}
-          onSaveAndClose={props.onSaveAndClose} />
-      )}
-
-      { !props.readOnly && props.annotation &&
-        <div className="r6o-widget comment editable">
-          <TextEntryField
-            content={draftReply.value}
-            editable={true}
-            placeholder={props.commentPlaceholder || comments.length > 0 ? i18n.t('Add a reply...') : i18n.t('Add a comment...')}
-            onChange={onEditReply}
-            onSaveAndClose={() => props.onSaveAndClose()}
-          /> 
-        </div>
-      }
+          onSaveAndClose={props.onSaveAndClose}
+          placeholder={props.placeholder}
+        />
+      )
+    
+    : !props.readOnly && props.annotation &&
+    <div className="r6o-widget comment editable">
+      <TextEntryField
+        content={draftReply.value}
+        editable={true}
+        placeholder={props.placeholder || comments.length > 0 ? i18n.t('Add a reply...') : i18n.t('Add a comment...')}
+        onChange={onEditReply}
+        onSaveAndClose={() => props.onSaveAndClose()}
+      /> 
+    </div> 
+    }
     </>
   )
 
