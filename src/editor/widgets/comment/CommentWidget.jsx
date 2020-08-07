@@ -48,11 +48,18 @@ const CommentWidget = props => {
       props.onUpdateBody(draftReply, { ...draftReply, value: updated });
     }
   }
-const body = comments[0] && comments[0].body 
 
+
+
+  const currentComment = comments[0] || null
+
+  const onUpdateComment = evt => {
+    props.onUpdateBody(currentComment, { ...currentComment, value: evt.target.value });
+  }
+console.log('checking props', props)
   return (
     <>
-      { comments.length >0 ? comments.map((body, idx) => 
+      { comments.length > 1000 ? comments.map((body, idx) => 
         <Comment 
           key={idx} 
           readOnly={props.readOnly} 
@@ -64,16 +71,18 @@ const body = comments[0] && comments[0].body
         />
       )
     
-    : !props.readOnly && props.annotation &&
+    : !props.readOnly 
+    // && props.annotation 
+    &&(
     <div className="r6o-widget comment editable">
       <TextEntryField
-        content={draftReply.value}
+        content={(currentComment && currentComment.value) || draftReply.value }
         editable={true}
-        placeholder={props.placeholder || comments.length > 0 ? i18n.t('Add a reply...') : i18n.t('Add a comment...')}
-        onChange={onEditReply}
+        placeholder={props.placeholder || i18n.t('Add your review')}
+        onChange={currentComment ? onUpdateComment : onEditReply}
         onSaveAndClose={() => props.onSaveAndClose()}
       /> 
-    </div> 
+    </div> )
     }
     </>
   )

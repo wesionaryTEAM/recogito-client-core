@@ -1,5 +1,5 @@
 import React from 'preact/compat';
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import { CSSTransition } from 'react-transition-group';
 import { CloseIcon } from '../../../Icons';
 import i18n from '../../../i18n';
@@ -16,6 +16,11 @@ const TagWidget = props => {
   const tagBodies = props.annotation ? 
     props.annotation.bodies.filter(b => b.purpose === 'tagging') : [];
 
+    if(tagBodies && tagBodies[0]){
+      console.log('tag bodies', tagBodies)
+      setValue(tagBodies[0].value)
+    }
+
   const toggle = tag => _ => {
     if (showDelete === tag) // Removes delete button
       setShowDelete(false);
@@ -28,12 +33,17 @@ const TagWidget = props => {
     props.onRemoveBody(tag);
   }
 
-  const onSubmit = tag => {
-    props.onAppendBody({ type: 'TextualBody', purpose: 'tagging', value: tag.trim() });
-  }
+  // const onSubmit = tag => {
+  //   props.onAppendBody({ type: 'TextualBody', purpose: 'tagging', value: tag.trim() });
+  // }
 
   const handleSelect = (val) => {
-    setValue(val)
+    setValue(val);
+    if(tagBodies && tagBodies[0]){
+      props.onUpdateBody(tagBodies[0], { ...tagBodies[0], value: val });
+      return;
+    }
+    props.onAppendBody({ type: 'TextualBody', purpose: 'tagging', value: val });
   }
 
   const currentOption = props.vocabulary.find(option => option.value === value) 
@@ -85,7 +95,7 @@ const TagWidget = props => {
         </svg>
            
            {
-             currentOption && currentOption.label || "Select Tag"
+             currentOption && currentOption.label || i18n.t('Select Tag')
            }
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

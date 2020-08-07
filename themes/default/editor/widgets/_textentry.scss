@@ -5,6 +5,9 @@
   min-height: 2em;
   font-size: 14px;
   font-family: "Lato", sans-serif;
+  width: 100%;
+  border: none;
+  background-color: $background-color;
 }
 
 .r6o-editable-text:empty:not(:focus):before {

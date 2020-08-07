@@ -22,17 +22,30 @@ export default class TextEntryField extends Component {
     if (ref && this.props.editable)
       ref.focus();
   }
+  
 
   render() {
     return (
-      <ContentEditable
-        innerRef={this.onRender}
+      // <ContentEditable
+      //   innerRef={this.onRender}
+      //   className="r6o-editable-text" 
+      //   html={this.props.content}
+      //   data-placeholder={this.props.placeholder || i18n.t('Add a comment...')}
+      //   disabled={!this.props.editable}
+      //   onChange={this.props.onChange}
+      //   onKeyDown={this.onKeyDown} 
+      //   />
+
+        <textarea
+        ref={this.onRender}
         className="r6o-editable-text" 
-        html={this.props.content}
-        data-placeholder={this.props.placeholder || i18n.t('Add a comment...')}
+        value={this.props.content}
+        placeholder={this.props.placeholder || i18n.t('Add a comment...')}
         disabled={!this.props.editable}
         onChange={this.props.onChange}
-        onKeyDown={this.onKeyDown} />
+        onKeyDown={this.onKeyDown} 
+        rows={5}
+        />
     )
   }
 
