@@ -5,25 +5,54 @@
 .r6o-widget.tag {
   background-color: $background-color;
   border-bottom: 0px solid rgba(0, 0, 0, 0) !important;
-  padding: 1px 3px;
+  padding: 1px 10px;
   display: flex;
 
   .tag-icon {
     margin-right: 3px;
   }
 
+  .tag-dropdown {
+    position: relative;
+  }
+
   .tag-button {
     background-color: #1a51cb;
     color: white;
-    padding-top: 0;
-    padding-bottom: 0;
     align-items: center;
     display: flex;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .tag-dropdown-menu {
+    position: absolute;
+    top: 30;
+    display: flex;
+    z-index: 10000000;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    min-width: 200px;
+    max-width: 400px;
+    max-height: 150px;
+    overflow-y: auto;
   }
 
   .button-span {
+    font-size: 14px;
+    padding: 2px 8px;
     &:hover {
       cursor: pointer;
+      background-color: $lightblue-type;
+      transition: all 0.5s;
     }
   }
 

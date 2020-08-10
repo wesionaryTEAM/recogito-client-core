@@ -34,9 +34,6 @@ const Editor = props => {
   const element = useRef();
 
   const listenerFunction = (event) => {
-    event.stopPropagation()
-    var span = document.getElementById("mainEditor");
-    console.log('checking event', event.target.className.baseVal)
     if(element.current !== null && !element.current.contains(event.target)){
       onOk();
       props.onCancel();
