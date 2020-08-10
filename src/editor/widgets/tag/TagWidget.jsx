@@ -81,44 +81,6 @@ const TagWidget = props => {
 
   return (
     <div className="r6o-widget tag" ref={tagRef}>
-      {/* { tagBodies.length > 0 &&
-        <ul className="r6o-taglist">
-          { tagBodies.map(tag => 
-            <li key={tag.value} onClick={toggle(tag.value)}>
-              <span className="label">{tag.value}</span>
-
-              {!props.readOnly &&
-                <CSSTransition in={showDelete === tag.value} timeout={200} classNames="delete">
-                  <span className="delete-wrapper" onClick={onDelete(tag)}>
-                    <span className="delete">
-                      <CloseIcon width={12} />
-                    </span>
-                  </span>
-                </CSSTransition>
-              }
-            </li>
-          )}
-        </ul>
-      }
-
-      { !props.readOnly &&
-        <Autocomplete 
-          placeholder={props.tagPlaceholder || i18n.t('Add tag...')}
-          onSubmit={onSubmit}
-          vocabulary={props.vocabulary || []} />
-      } */}
-        {/* <select className="custom-select">
-        <option value="0">Select Organ</option>
-          {
-            props.vocabulary && props.vocabulary.length > 0 &&
-            props.vocabulary.map(option => {
-              return (
-                    <option value={option.value}>{option.label}</option>
-              )
-            })
-          }
-        </select> */}
-
       <div class="tag-dropdown" >
         <button onClick={handleToggle} class="btn btn-sm tag-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-tag-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="tag-icon">

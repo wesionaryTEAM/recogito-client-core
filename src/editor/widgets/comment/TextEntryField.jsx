@@ -1,5 +1,4 @@
 import React, { Component } from 'preact/compat';
-import ContentEditable from 'react-contenteditable';
 import i18n from '../../../i18n';
 
 /** 
@@ -26,20 +25,10 @@ export default class TextEntryField extends Component {
 
   render() {
     return (
-      // <ContentEditable
-      //   innerRef={this.onRender}
-      //   className="r6o-editable-text" 
-      //   html={this.props.content}
-      //   data-placeholder={this.props.placeholder || i18n.t('Add a comment...')}
-      //   disabled={!this.props.editable}
-      //   onChange={this.props.onChange}
-      //   onKeyDown={this.onKeyDown} 
-      //   />
-
         <textarea
         ref={this.onRender}
         className="r6o-editable-text" 
-        value={this.props.content}
+        value={this.props.content || ""}
         placeholder={this.props.placeholder || i18n.t('Add a comment...')}
         disabled={!this.props.editable}
         onChange={this.props.onChange}

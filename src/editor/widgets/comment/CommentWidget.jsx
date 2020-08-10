@@ -1,5 +1,4 @@
 import React from 'preact/compat';
-import Comment from './Comment';
 import TextEntryField from './TextEntryField';
 import i18n from '../../../i18n';
 
@@ -38,7 +37,7 @@ const CommentWidget = props => {
 
   const onEditReply = evt => {
     const prev = draftReply.value.trim();
-    const updated = evt.target.value.trim();
+    const updated = evt.target.value;
 
     if (prev.length === 0 && updated.length > 0) {
       props.onAppendBody({ ...draftReply, value: updated });
@@ -58,33 +57,15 @@ const CommentWidget = props => {
   }
 console.log('checking props', props)
   return (
-    <>
-      { comments.length > 1000 ? comments.map((body, idx) => 
-        <Comment 
-          key={idx} 
-          readOnly={props.readOnly} 
-          body={body} 
-          onUpdate={props.onUpdateBody}
-          onDelete={props.onRemoveBody}
-          onSaveAndClose={props.onSaveAndClose}
-          placeholder={props.placeholder}
-        />
-      )
-    
-    : !props.readOnly 
-    // && props.annotation 
-    &&(
     <div className="r6o-widget comment editable">
       <TextEntryField
         content={(currentComment && currentComment.value) || draftReply.value }
-        editable={true}
+        editable={!props.readOnly }
         placeholder={props.placeholder || i18n.t('Add your review')}
         onChange={currentComment ? onUpdateComment : onEditReply}
         onSaveAndClose={() => props.onSaveAndClose()}
       /> 
-    </div> )
-    }
-    </>
+    </div> 
   )
 
 }
