@@ -27,6 +27,7 @@ export default class TextEntryField extends Component {
     return (
         <textarea
         ref={this.onRender}
+        maxLength={this.props.maxLength}
         className="r6o-editable-text" 
         value={this.props.content || ""}
         placeholder={this.props.placeholder || i18n.t('Add a comment...')}

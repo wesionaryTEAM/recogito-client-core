@@ -59,6 +59,7 @@ console.log('checking props', props)
   return (
     <div className="r6o-widget comment editable">
       <TextEntryField
+        maxLength={props.maxCommentLength}
         content={(currentComment && currentComment.value) || draftReply.value }
         editable={!props.readOnly }
         placeholder={props.placeholder || i18n.t('Add your review')}
