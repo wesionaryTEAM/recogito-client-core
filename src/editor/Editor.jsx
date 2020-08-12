@@ -192,24 +192,6 @@ const Editor = props => {
             onSaveAndClose : onOk              
           }))
         }
-        
-        {/* { props.readOnly ? (
-          <div className="footer">
-            <button
-              className="r6o-btn" 
-              onClick={props.onCancel}>{i18n.t('Close')}</button>
-          </div>
-        ) : (
-          <div className="footer">
-            <button 
-              className="r6o-btn outline"
-              onClick={props.onCancel}>{i18n.t('Cancel')}</button>
-
-            <button 
-              className="r6o-btn "
-              onClick={onOk}>{i18n.t('Ok1')}</button>
-          </div>
-        )} */}
         <div className="dustbin" onClick={handleDelete}>
           <svg id="Layer_1" fill="currentColor" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
                 <g>
