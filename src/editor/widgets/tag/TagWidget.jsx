@@ -88,7 +88,7 @@ const TagWidget = props => {
         </svg>
            
            {
-             currentOption && currentOption.label || i18n.t('Select Tag')
+             currentOption && currentOption.label || props.placeholder || i18n.t('Select Tag')
            }
         </button>
         <div class="tag-dropdown-menu" style={{display: showMenu ? 'flex' : 'none'}}>
