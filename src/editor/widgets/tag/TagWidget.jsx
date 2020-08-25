@@ -105,10 +105,28 @@ const TagWidget = props => {
   }, [showMenu])
 
   const currentOption = props.vocabulary &&  props.vocabulary.find(option => option.value === value.split(" / ")[0]) 
+
+  if(value.split(" / ")[2]){
+    
+  }
   const newLevels = value.split(" / ")
 
   const forLabels = [...newLevels]
   forLabels[0] = currentOption && currentOption.label
+
+  if(currentOption && value.split(" / ")[1]){
+    const disease =  currentOption.options && currentOption.options.find(option => option.value === value.split(" / ")[1]) 
+    if(disease){
+      forLabels[1] = disease.label
+    }
+  }
+
+  if(value.split(" / ")[2]){
+    const obersation =  props.observationOptions && props.observationOptions.find(option => option.value === value.split(" / ")[2]) 
+    if(obersation){
+      forLabels[2] = obersation.label
+    }
+  }
   const finalLabel = forLabels.join(" / ")
   
 
@@ -145,8 +163,8 @@ const TagWidget = props => {
             currentOption && currentOption.options &&  currentOption.options.length > 0 &&
             currentOption.options.map(option => {
               return (
-              <span class={`dropdown-item button-span ${newLevels[1] === option ? "selected" : ""}`} onClick={() => handleSelect(option, 1)}>
-                {option}
+              <span class={`dropdown-item button-span ${newLevels[1] === option.value ? "selected" : ""}`} onClick={() => handleSelect(option.value, 1)}>
+                {option.label}
                 <span style={{float:"right"}}>
                   >
                 </span>
@@ -160,7 +178,7 @@ const TagWidget = props => {
             props.observationOptions &&  props.observationOptions.length > 0 &&
             props.observationOptions.map(option => {
               return (
-              <span class={`dropdown-item button-span ${newLevels[2] === option ? "selected" : ""}`} onClick={() => handleSelect(option, 2)}>{option}</span>
+              <span class={`dropdown-item button-span ${newLevels[2] === option.value ? "selected" : ""}`} onClick={() => handleSelect(option.value, 2)}>{option.label}</span>
               )
             })
           }
