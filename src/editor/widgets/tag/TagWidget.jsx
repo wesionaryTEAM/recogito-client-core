@@ -45,8 +45,10 @@ const TagWidget = props => {
     props.annotation.bodies.filter(b => b.purpose === 'tagging') : [];
 
     if(tagBodies && tagBodies[0]){
-      console.log('tag bodies', tagBodies)
-      setValue(tagBodies[0].value)
+      const newValue = tagBodies[0].value
+      setValue(newValue)
+      const newLevels = newValue.split(" / ")
+      setLevel(newLevels)
     }
 
   const toggle = tag => _ => {
