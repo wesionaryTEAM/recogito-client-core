@@ -40,6 +40,23 @@ const TagWidget = props => {
     }
   }, [])
 
+
+  useEffect(() => {
+
+    if(props.annotation && !(level.length > 0)){
+
+    const tagBodies = props.annotation.bodies ? 
+    props.annotation.bodies.filter(b => b.purpose === 'tagging') : [];
+    
+
+    if(tagBodies && tagBodies[0]){
+      const newValue = tagBodies[0].value
+      const newLevels = newValue.split(" / ")
+      console.log('checking the new levels', newLevels)
+      setLevel(newLevels)
+    }}
+  }, [props.annotation])
+
   // Every body with a 'tagging' purpose is considered a tag
   const tagBodies = props.annotation ? 
     props.annotation.bodies.filter(b => b.purpose === 'tagging') : [];
@@ -47,8 +64,6 @@ const TagWidget = props => {
     if(tagBodies && tagBodies[0]){
       const newValue = tagBodies[0].value
       setValue(newValue)
-      const newLevels = newValue.split(" / ")
-      setLevel(newLevels)
     }
 
   const toggle = tag => _ => {
