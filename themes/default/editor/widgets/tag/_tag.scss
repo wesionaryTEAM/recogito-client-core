@@ -7,6 +7,8 @@
   border-bottom: 0px solid rgba(0, 0, 0, 0) !important;
   padding: 1px 10px;
   display: flex;
+  width: fit-content;
+  max-width: calc(100% - 20px);
 
   .tag-icon {
     margin-right: 3px;
@@ -14,37 +16,66 @@
 
   .tag-dropdown {
     position: relative;
+    max-width: 100%;
   }
 
   .tag-button {
     background-color: #1a51cb;
     color: white;
     align-items: center;
-    display: flex;
+    display: block;
     border-radius: 3px;
     border: none;
     outline: none;
     padding-top: 2px;
     padding-bottom: 2px;
-    font-size: 16px;
+    font-size: 14px;
+    white-space: nowrap;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
     &:hover {
       cursor: pointer;
     }
+    svg {
+      vertical-align: middle;
+    }
+  }
+
+  .tag-dropdown-block {
+    display: "flex";
+    position: absolute;
+    top: 30;
+    z-index: 10000000;
   }
 
   .tag-dropdown-menu {
-    position: absolute;
-    top: 30;
     display: flex;
-    z-index: 10000000;
     flex-direction: column;
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    min-width: 200px;
+    min-width: 120px;
     max-width: 400px;
     max-height: 150px;
     overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
   }
 
   .button-span {
@@ -54,6 +85,13 @@
       cursor: pointer;
       background-color: $lightblue-type;
       transition: all 0.5s;
+    }
+    &.selected {
+      font-weight: bold;
+      background-color: #e6f7ff;
+      &:hover {
+        background-color: #e6f7ff;
+      }
     }
   }
 

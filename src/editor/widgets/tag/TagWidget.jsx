@@ -11,6 +11,8 @@ const TagWidget = props => {
   const [ showDelete, setShowDelete ] = useState(false);
   const [ showMenu, setShowMenu] = useState(false)
 
+  const [level, setLevel] = useState([])
+
   const [value, setValue] = useState("")
 
   const tagRef = useRef();
@@ -63,21 +65,52 @@ const TagWidget = props => {
   //   props.onAppendBody({ type: 'TextualBody', purpose: 'tagging', value: tag.trim() });
   // }
 
-  const handleSelect = (val) => {
-    setValue(val);
-    setShowMenu(false)
+  const handleSelect = (val, index) => {
+
+    let newLevel = []
+
+    if(index === 0){
+      newLevel = [val]
+    } else if (index === 1){
+      newLevel = [level[0], val]
+    }else if (index === 2){
+      newLevel = [level[0], level[1], val]
+      setShowMenu(false)
+    }
+
+    setLevel(newLevel)
+
+    const newValue = newLevel.join(" / ")
+
+    setValue(newValue);
+    // setShowMenu(false)
     if(tagBodies && tagBodies[0]){
-      props.onUpdateBody(tagBodies[0], { ...tagBodies[0], value: val });
+      props.onUpdateBody(tagBodies[0], { ...tagBodies[0], value: newValue });
       return;
     }
-    props.onAppendBody({ type: 'TextualBody', purpose: 'tagging', value: val });
+    props.onAppendBody({ type: 'TextualBody', purpose: 'tagging', value: newValue });
   }
 
   const handleToggle = () => {
     setShowMenu(!showMenu)
   }
 
-  const currentOption = props.vocabulary &&  props.vocabulary.find(option => option.value === value) 
+
+  useEffect(() => {
+    if(showMenu && value){
+      const scrollElement = document.getElementById(value.split(" / ")[0])
+      if(scrollElement){
+      scrollElement.scrollIntoView(scrollElement)}
+    }
+  }, [showMenu])
+
+  const currentOption = props.vocabulary &&  props.vocabulary.find(option => option.value === value.split(" / ")[0]) 
+  const newLevels = value.split(" / ")
+
+  const forLabels = [...newLevels]
+  forLabels[0] = currentOption && currentOption.label
+  const finalLabel = forLabels.join(" / ")
+  
 
   return (
     <div className="r6o-widget tag" ref={tagRef}>
@@ -88,19 +121,52 @@ const TagWidget = props => {
         </svg>
            
            {
-             currentOption && currentOption.label || props.placeholder || i18n.t('Select Tag')
+             currentOption && finalLabel || props.placeholder || i18n.t('Select Tag')
            }
         </button>
-        <div class="tag-dropdown-menu" style={{display: showMenu ? 'flex' : 'none'}}>
+        <div className="tag-dropdown-block" style={{display: showMenu ? 'flex' : 'none'}}>
+        <div class="tag-dropdown-menu" id="organList">
         {
             props.vocabulary && props.vocabulary.length > 0 &&
             props.vocabulary.map(option => {
               return (
-              <span class="dropdown-item button-span" onClick={() => handleSelect(option.value)}>{option.label}</span>
+              <span id={option.value} class={`dropdown-item button-span ${newLevels[0] === option.value ? "selected" : ""}`} onClick={() => handleSelect(option.value, 0)}>
+                {option.label}
+                <span style={{float:"right"}}>
+                  >
+                </span>
+                </span>
               )
             })
           }
         </div>
+        <div class="tag-dropdown-menu" style={{display: newLevels[0] ? 'flex' : 'none'}}>
+        {
+            currentOption && currentOption.options &&  currentOption.options.length > 0 &&
+            currentOption.options.map(option => {
+              return (
+              <span class={`dropdown-item button-span ${newLevels[1] === option ? "selected" : ""}`} onClick={() => handleSelect(option, 1)}>
+                {option}
+                <span style={{float:"right"}}>
+                  >
+                </span>
+                </span>
+              )
+            })
+          }
+        </div>
+        <div class="tag-dropdown-menu" style={{display: newLevels[1] ? 'flex' : 'none'}}>
+        {
+            props.observationOptions &&  props.observationOptions.length > 0 &&
+            props.observationOptions.map(option => {
+              return (
+              <span class={`dropdown-item button-span ${newLevels[2] === option ? "selected" : ""}`} onClick={() => handleSelect(option, 2)}>{option}</span>
+              )
+            })
+          }
+        </div>
+        </div>
+        
       </div>
  
     </div>
