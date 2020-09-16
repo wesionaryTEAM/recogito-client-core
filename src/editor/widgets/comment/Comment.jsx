@@ -9,7 +9,6 @@ import Environment from '../../../Environment';
 /** A single comment inside the CommentWidget **/
 const Comment = props => {
 
-  console.log('checking props inside comment', props)
 
   if (props.body){
     props.body.draft = true;

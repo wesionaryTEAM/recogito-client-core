@@ -26,6 +26,7 @@ export default class TextEntryField extends Component {
   render() {
     return (
         <textarea
+        readOnly={this.props.viewOnly}
         ref={this.onRender}
         maxLength={this.props.maxLength}
         className="r6o-editable-text" 

@@ -145,6 +145,9 @@ const Editor = props => {
 
   const onOk = _ => {
     // Removes the 'draft' flag from all bodies
+    if(props.readOnly){
+      return;
+    }
     const undraft = annotation => annotation.clone({
       body : annotation.bodies.map(({ draft, ...rest }) =>
         draft ? { ...rest, ...creationMeta(rest) } : rest )
@@ -171,6 +174,9 @@ const Editor = props => {
 
 
   const handleDelete = () => {
+    if(props.readOnly){
+      return;
+    }
     props.onAnnotationDeleted(props.annotation);
     props.onCancel();
   }

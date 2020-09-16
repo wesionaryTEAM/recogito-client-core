@@ -52,7 +52,6 @@ const TagWidget = props => {
     if(tagBodies && tagBodies[0]){
       const newValue = tagBodies[0].value
       const newLevels = newValue.split(" / ")
-      console.log('checking the new levels', newLevels)
       setLevel(newLevels)
     }}
   }, [props.annotation])
@@ -84,6 +83,10 @@ const TagWidget = props => {
 
   const handleSelect = (val, index) => {
 
+    if(props.readOnly){
+      return;
+    }
+
     let newLevel = []
 
     if(index === 0){
@@ -109,6 +112,9 @@ const TagWidget = props => {
   }
 
   const handleToggle = () => {
+    if(props.readOnly){
+      return;
+    }
     setShowMenu(!showMenu)
   }
 
